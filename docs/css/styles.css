@@ -1,0 +1,40 @@
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdf6f0; /* light beige */
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #e7c8b3; /* warm clay pastel */
+  padding: 1em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #4a342e; /* dark brown */
+  font-weight: bold;
+}
+
+main {
+  padding: 2em;
+  background-color: #fff5eb; /* peachy pastel */
+}
+
+footer {
+  background-color: #e7c8b3;
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+}

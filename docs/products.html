@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu – Petit Café</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    :root {
+      --bg: #f5eee6;
+      --primary: #6f4e37;   /* Coffee brown */
+      --accent: #a97451;    /* Latte */
+      --text: #3e2c23;      /* Dark espresso */
+      --card: #fff8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background-color: rgb(244, 225, 205);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #3e2c23;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+/* ✅ Updated: Use 2 columns on mobile */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.product-card {
+  background-color: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-card h3 {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.price {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.feedback {
+  margin-top: 2rem;
+  background-color: #f3e9dd;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+form label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5a4c47;
+  padding-bottom: 1rem;
+}
+
+.menu-toggle {
+  display: block;
+  font-size: 1.5rem;
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-nav {
+  display: none;
+  background-color: var(--accent);
+}
+
+.mobile-nav .nav-links {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.scrolling-banner {
+  display: flex;
+  overflow-x: scroll;
+  gap: 1rem;
+  padding: 1rem 0;
+  margin: 2rem 0;
+  background-color: var(--primary);
+  border-radius: 8px;
+}
+
+.scrolling-banner .item {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+  background-color: var(--card);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrolling-banner img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+}
+
+.order-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 16px var(--shadow);
+  text-align: center;
+  z-index: 1000;
+  animation: jump 0.6s ease;
+}
+
+.order-popup img {
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes jump {
+  0%   { transform: translateY(100%); opacity: 0; }
+  40%  { transform: translateY(-20px); opacity: 1; }
+  60%  { transform: translateY(10px); }
+  80%  { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+/* ✅ Responsive updates */
+@media (max-width: 480px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .product-card h3 {
+    font-size: 1rem;
+  }
+
+  .price {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .nav-links {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr); /* tablets and up */
+  }
+}
+
+@media (min-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr); /* desktops and up */
+  }
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  <nav class="mobile-nav" id="mobileNav">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Menu</a></li>
+      <li><a href="ordering.html">Order</a></li>
+      <li><a href="sitemap.html">Find Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <main>
+    <h2>Petit Café Menu</h2>
+
+    <section class="product-grid">
+      <div class="product-card">
+        <img src="images/products_02.jpg" alt="Grilled Veggie Wrap" />
+        <h3>Black Coffee</h3>
+        <span class="price">K15.99</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_07.jpg" alt="Lemonade Splash" />
+        <h3>Boba</h3>
+        <span class="price">K55.99</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_04.jpg" alt="Veggie Burger" />
+        <h3>Sharwama</h3>
+        <span class="price">K39.49</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_08.jpg" alt="Berry Smoothie" />
+        <h3>Veggie Taco</h3>
+        <span class="price">K47.99</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_03.jpg" alt="Grilled Veggie Wrap" />
+        <h3>Latté</h3>
+        <span class="price">K34.99</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_06.jpg" alt="Lemonade Splash" />
+        <h3>Fruit Smoothie</h3>
+        <span class="price">K27.49</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_05.jpg" alt="Veggie Burger" />
+        <h3>Cream Cake</h3>
+        <span class="price">K149.99</span>
+      </div>
+      <div class="product-card">
+        <img src="images/products_01.jpg" alt="Berry Smoothie" />
+        <h3>Pizza</h3>
+        <span class="price">K59.99</span>
+      </div>
+    </section>    
+
+    <!-- Scrolling Banner Section
+    <section class="scrolling-banner">
+      <div class="item">
+        <img src="images/products_01.jpg" alt="Grilled Veggie Wrap" />
+      </div>
+      <div class="item">
+        <img src="images/products_02.jpg" alt="Lemonade Splash" />
+      </div>
+      <div class="item">
+        <img src="images/products_03.jpg" alt="Veggie Burger" />
+      </div>
+      <div class="item">
+        <img src="path/to/food-item4.jpg" alt="Berry Smoothie" />
+      </div>
+    </section>
+  -->
+
+    <section class="feedback">
+      <h3>Share Your Experience</h3>
+      <form>
+        <label>Name: <input type="text" name="name" required/></label><br/>
+        <label>Rating: 
+          <select name="rating" required>
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★</option>
+            <option value="3">★★★</option>
+            <option value="2">★★</option>
+            <option value="1">★</option>
+          </select>
+        </label><br/>
+        <label>Email (Optional): <input type="email" name="email" /></label><br/>
+        <label>Message (Optional):<br/>
+          <textarea name="message" rows="4" cols="30"></textarea>
+        </label><br/>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="order-popup" id="orderPopup">
+    <img src="images/mascot.png" alt="Mascot" />
+    <p>Thank you! 🍽️</p>
+  </div>  
+
+  <footer>
+    <p>© 2025 Petit Café&trade; | Follow us on Instagram & Facebook</p>
+  </footer>
+  
+ <script>
+  $(document).ready(function () {
+    $("#menuToggle").on("click", function () {
+      $("#mobileNav").slideToggle();
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("form").on("submit", function (e) {
+      e.preventDefault(); // Prevent actual form submission
+      $("#orderPopup")
+        .fadeIn()
+        .delay(3000)
+        .fadeOut();
+    });
+  });
+</script>
+
+<!--  <script>
+$(document).ready(function () {
+  function scrollBanner(direction = "right") {
+    const $banner = $(".scrolling-banner");
+    const distance = direction === "right" ? "+=300" : "-=300";
+
+    $banner.animate(
+      { scrollLeft: distance },
+      20000,
+      "linear",
+      function () {
+        scrollBanner(direction === "right" ? "left" : "right"); // reverse direction
+      }
+    );
+  }
+
+  scrollBanner(); // Start the ping-pong scroll
+});
+  </script>
+-->
+</body>
+</html>

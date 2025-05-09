@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome – Petit Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    :root {
+      --bg: #f5eee6;
+      --primary: #6f4e37;   /* Coffee brown */
+      --accent: #a97451;    /* Latte */
+      --text: #3e2c23;      /* Dark espresso */
+      --card: #fff8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background-color: rgb(244, 225, 205);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    .menu-toggle {
+      font-size: 1.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .mobile-nav {
+      display: none;
+      background-color: var(--primary);
+    }
+
+    .mobile-nav .nav-links {
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      font-weight: 500;
+    }
+
+    h3{
+      text-align: center;
+      margin-top: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.7rem;
+      font-weight: 200;
+    }
+
+    .intro {
+      background-color: var(--card);
+      padding: 1.5rem;
+      margin: 1.5rem auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px var(--shadow);
+      max-width: 700px;
+    }
+
+    .intro p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .gallery {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .grid-image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #5a4c47;
+      padding-bottom: 1rem;
+    }
+
+    .language-select {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .language-select select {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background-color: rgb(204, 165, 143);
+      border: 1px solid var(--accent);
+      font-family: inherit;
+    }
+
+    #petit-cafe {
+      color: var(--primary);
+    }
+
+    @media (min-width: 600px) {
+      .nav-links {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .mobile-nav {
+        display: flex !important;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  <nav class="mobile-nav" id="mobileNav">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Menu</a></li>
+      <li><a href="ordering.html">Order</a></li>
+      <li><a href="sitemap.html">Find Us</a></li>
+    </ul>
+  </nav>
+  <div class="language-select">
+    <label for="language">🌐</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <h1 id="title">Welcome to <span id="petit-cafe"><em>Petit Café</em></span></h1>
+  <section class="intro">
+    <p id="line1">Enjoy a calm, cozy, and delicious meal as the beauty of nature surrounds you at <span id="petit-cafe"><em>Petit Café&trade;</em></span>.</p>
+    <p id="line2">From rich, brewed coffee designed just for you, to creamy cakes and exotic food. Every meal is a promise of <em>comfort, joy</em> and <em>relaxation</em>.</p>
+    <p id="line3">Don't have the time to stop by? Place an order through our app and we will bring <span id="petit-cafe"><em>Petit Café&trade;</em></span> right to your door-step!</p>
+  </section>
+
+  <section class="gallery">
+   <h3 id="galleryTitle"><span id="petit-cafe"><em>Cozy, Delicious Meals - Any Time, Any Place</em></span></h3>
+    <div class="image-grid">
+      <img src="images/land_05.jpg" alt="Cozy picnic scene" class="grid-image" />
+      <img src="images/land_04.jpg" alt="Food truck scene" class="grid-image" />
+      <img src="images/extra_02.jpg" alt="Camping food setup" class="grid-image" />
+      <img src="images/order_01.jpg" alt="Outdoor dining table" class="grid-image" />
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p id="footerText">©2025 Petit Café&trade; | Follow Us On Instagram & Facebook</p>
+</footer>
+
+<script>
+  $(document).ready(function () {
+    $("#language").on("change", function () {
+      const selectedLang = $(this).val();
+
+      $.getJSON("data/lang.json", function (data) {
+        const content = data[selectedLang];
+
+        $("#title, #line1, #line2, #line3, #galleryTitle, #footerText").fadeOut(200, function () {
+          $("#title").text(content.title);
+          $("#line1").text(content.line1);
+          $("#line2").text(content.line2);
+          $("#line3").text(content.line3);
+          $("#galleryTitle").text(content.galleryTitle);
+          $("#footerText").text(content.footerText);
+          $("#title, #line1, #line2, #line3, #galleryTitle, #footerText").fadeIn(200);
+        });
+      });
+    });
+
+    $("#menuToggle").on("click", function () {
+      $("#mobileNav").slideToggle();
+    });
+  });
+</script>
+
+</body>
+</html>

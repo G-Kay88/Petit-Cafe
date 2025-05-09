@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery – Petit Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    :root {
+      --bg: #f5eee6;
+      --primary: #6f4e37;
+      --accent: #a97451;
+      --text: #3e2c23;
+      --card: #fff8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background-color: rgb(244, 225, 205);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      font-weight: 500;
+      text-align: center;
+      margin: 1rem 0;
+      color: #3e2c23;
+    }
+
+    .order-form {
+      background-color: var(--card);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px var(--shadow);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .order-form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .order-form input,
+    .order-form select,
+    .order-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .order-form button {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #5a4c47;
+      padding-bottom: 1rem;
+    }
+	
+	.menu-toggle {
+	  display: block;
+	  font-size: 1.5rem;
+	  background: var(--accent);
+	  color: white;
+	  padding: 0.5rem 1rem;
+	  cursor: pointer;
+	  text-align: left;
+	}
+
+	.mobile-nav {
+	  display: none;
+	  background-color: var(--accent);
+	}
+
+	.mobile-nav .nav-links {
+	  flex-direction: column;
+	  padding: 1rem;
+	}
+
+
+    @media (min-width: 600px) {
+      .nav-links {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+	
+	.order-popup {
+	  display: none;
+	  position: fixed;
+	  bottom: 20px;
+	  right: 20px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+	  background: var(--card);
+	  border: 2px solid var(--accent);
+	  border-radius: 12px;
+	  padding: 1rem;
+	  box-shadow: 0 8px 16px var(--shadow);
+	  text-align: center;
+	  z-index: 1000;
+	  animation: jump 0.6s ease;
+	}
+
+	.order-popup img {
+	  width: 90px;
+	  height: 90px;
+    border-radius: 15px;
+	  margin-bottom: 0.5rem;
+	}
+
+	@keyframes jump {
+	  0%   { transform: translateY(100%); opacity: 0; }
+	  40%  { transform: translateY(-20px); opacity: 1; }
+	  60%  { transform: translateY(10px); }
+	  80%  { transform: translateY(-5px); }
+	  100% { transform: translateY(0); }
+	}
+  </style>
+</head>
+<body>
+<header>
+  <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  <nav class="mobile-nav" id="mobileNav">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Menu</a></li>
+      <li><a href="ordering.html">Order</a></li>
+      <li><a href="sitemap.html">Find Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <main>
+    <h1>Order Petit Café</h1>
+    <section class="order-form">
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="phone">Phone Number:</label>
+        <input type="number" id="phone" name="phone" required />
+
+        <label for="address">Delivery Address:</label>
+        <input type="text" id="address" name="address" required />
+
+        <label for="item">Select Dish:</label>
+        <select id="item" name="item">
+          <option value="">-- Select --</option>
+          <option value="sharwama">Sharwama</option>
+          <option value="taco">Veggie Taco</option>
+          <option value="cake">Cream Cake</option>
+          <option value="pizza">Pizza</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" />
+
+        <label for="notes">Special Requests:</label>
+        <textarea id="notes" name="notes" rows="4"></textarea>
+
+        <button type="submit">Submit Order</button>
+      </form>
+    </section>
+	
+	<div class="order-popup" id="orderPopup">
+		<img src="images/mascot.png" alt="Mascot" />
+		<p>Thank you! 🍽️</p>
+	</div>
+  </main>
+
+  <footer>
+    <p>© 2025 Petit Café | Follow us on Instagram & Facebook</p>
+  </footer>
+  
+	<script>
+  $(document).ready(function () {
+    $("form").on("submit", function (e) {
+      e.preventDefault(); // Prevent actual form submission
+      $("#orderPopup")
+        .fadeIn()
+        .delay(3000)
+        .fadeOut();
+    });
+  });
+	</script>
+	
+<script>
+  $(document).ready(function () {
+    $("#menuToggle").on("click", function () {
+      $("#mobileNav").slideToggle();
+    });
+  });
+</script>
+</body>
+</html>
